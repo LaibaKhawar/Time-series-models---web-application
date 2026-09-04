@@ -1,0 +1,11 @@
+jupyter
+matplotlib
+numpy
+pandas
+plotly
+pmdarima
+prophet
+scikit-learn
+seaborn
+statsmodels
+tensorflow
