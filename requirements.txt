@@ -8,4 +8,5 @@ prophet
 scikit-learn
 seaborn
 statsmodels
+streamlit
 tensorflow

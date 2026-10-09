@@ -166,7 +166,7 @@ elif main_option == 'Forecasting Models':
     if forecasting_model != 'Select a model':
         if st.session_state.selected_model != forecasting_model:
             st.session_state.selected_model = forecasting_model
-            st.experimental_rerun()
+            st.rerun()
 
     if st.session_state.selected_model == 'ARIMA Forecast':
         st.subheader('ARIMA Model')
@@ -245,10 +245,10 @@ elif main_option == 'Forecasting Models':
 
     elif st.session_state.selected_model == 'SVR Forecast':
         st.subheader('SVR Model')
-        train_shifted = df_train['Close'].shift(1).fillna(method='bfill')
+        train_shifted = df_train['Close'].shift(1).bfill()
         X_train = train_shifted.values.reshape(-1, 1)
         y_train = df_train['Close'].values
-        X_test = df_valid['Close'].shift(1).fillna(method='bfill').values.reshape(-1, 1)
+        X_test = df_valid['Close'].shift(1).bfill().values.reshape(-1, 1)
 
         svr_model = make_pipeline(StandardScaler(), SVR(C=1.0, epsilon=0.1, kernel='rbf'))
         svr_model.fit(X_train, y_train)
@@ -478,10 +478,10 @@ elif main_option == 'Model Metrics':
     metrics['Prophet'] = prophet_mse
 
     # SVR Model
-    train_shifted = df_train['Close'].shift(1).fillna(method='bfill')
+    train_shifted = df_train['Close'].shift(1).bfill()
     X_train = train_shifted.values.reshape(-1, 1)
     y_train = df_train['Close'].values
-    X_test = df_valid['Close'].shift(1).fillna(method='bfill').values.reshape(-1, 1)
+    X_test = df_valid['Close'].shift(1).bfill().values.reshape(-1, 1)
     svr_model = make_pipeline(StandardScaler(), SVR(C=1.0, epsilon=0.1, kernel='rbf'))
     svr_model.fit(X_train, y_train)
     svr_predictions = svr_model.predict(X_test)
